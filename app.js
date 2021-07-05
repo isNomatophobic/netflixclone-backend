@@ -17,7 +17,8 @@ app.use('/login',loginRoute)
 
 
 app.get('/',(req,res)=>{
-    res.status(200).json({'wwwwwwwwwwwwwwwwwwwwwww':'wwwwwwwwwwwwwwwwwwwwwwwwww'})
+    // res.status(200).json({'wwwwwwwwwwwwwwwwwwwwwww':'wwwwwwwwwwwwwwwwwwwwwwwwww'})
+    res.send("w")
 })
 
 

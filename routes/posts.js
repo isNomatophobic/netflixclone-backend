@@ -1,15 +1,10 @@
 import express from "express"
-
+import verify from "./verifyToken.js"
 import Post from "../models/Post.js"
 const router = express.Router()
 
-router.get('/',async (req,res)=>{
-    try {
-        const posts = await Post.find()
-        res.json(posts)
-    } catch (error) {
-            
-    }
+router.get('/',verify,async (req,res)=>{
+    res.send('user is loged')
 })
 router.post('/', async (req,res)=>{
     //register

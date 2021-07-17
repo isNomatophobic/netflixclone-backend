@@ -32,7 +32,7 @@ router.post('/accounts',async (req,res)=>{
                 return account.accountName==req.body.accountName
         })
         console.log(matching)
-        if(matching.length>0) return res.status(400).json({error:"Account name already taken"})
+        if(matching.length>0) return res.status(409).json({error:"Account name already taken"})
         try{
          const token = req.body.jwt
          const verified = jwt.verify(token,process.env.TOKEN_SECRET)

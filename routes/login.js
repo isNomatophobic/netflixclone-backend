@@ -80,5 +80,33 @@ router.delete('/accounts',async (req,res)=>{
 
         
 })
+//change data
+router.patch('/accounts',async (req,res)=>{
+        const account = await Account.findOne({email:req.body.email,accountName:req.body.accountName})
+        console.log(account)
+        var updatedAccount
+        if(req.body.newAccountName&&req.body.newAccountImage)
+        updatedAccount={
+                accountName:req.body.newAccountName,
+                accountImage:req.body.newAccountImage
+        }
+        else return res.status(400).json({error:"Invalid entry"})
 
+        try{
+        const token = req.body.jwt
+        const verified = jwt.verify(token,process.env.TOKEN_SECRET)
+       }
+       catch(e){
+               return res.status(400).json({error:"Invalid JWT"})
+        }
+        if(account)
+        {
+         const deletedAccount = await Account.updateOne(account,updatedAccount);
+         res.status(200).json(deletedAccount)
+        }
+        else
+        res.status(404).json({Error:"not found"})
+
+        
+})
 export default router

@@ -1,5 +1,7 @@
 import express from "express"
 import RegData from "../models/RegData.js"
+import Account from "../models/Account.js"
+
 import bcrypt from "bcryptjs"
 const router = express.Router()
 
@@ -15,8 +17,14 @@ router.post('/',async (req,res)=>{
         email:req.body.email,
         password:hashedPassword
     });
+    const accountData= new Account({
+        email:req.body.email,
+        accountName:'Kids',
+        accountImage:'156 - p19PL8P'
+})
     try{
         const savedData = await regData.save()
+        const savedAccount = await accountData.save();
         res.status(200).send(regData)
     }
     catch(e)

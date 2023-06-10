@@ -6,8 +6,11 @@ import bcrypt from "bcryptjs"
 const router = express.Router()
 
 router.post('/',async (req,res)=>{
-
+    console.log(req.body)
     const emailExists = await RegData.findOne({email:req.body.email})
+    if(!req.body.email) return res.status(400).send("No Email Provided")
+    if(!req.body.password) return res.status(400).send("No Password Provided")
+
     if(emailExists) return res.status(406).send("Email already exists")
 
     const salt = await bcrypt.genSalt(10)

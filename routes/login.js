@@ -7,7 +7,10 @@ import jwt from  "jsonwebtoken"
 const router = express.Router()
 
 router.post('/',async (req,res)=>{
-                const user = await RegData.findOne({email:req.body.email})
+        if(!req.body.email) return res.status(400).send("No Email Provided")
+        if(!req.body.password) return res.status(400).send("No Password Provided")
+        
+        const user = await RegData.findOne({email:req.body.email})
         if(!user) return res.status(404).json({Auth:false,data:'Email not found'})
         
         const validPassword = await bcrypt.compare(req.body.password,user.password)
